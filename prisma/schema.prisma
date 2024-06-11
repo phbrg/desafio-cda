@@ -1,0 +1,26 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "binary"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  ip        String   @unique
+  discordId String   @unique
+  inGameId  String   @unique
+  badges    Json[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+}
+
+model Badge {
+  id    Int    @id @default(autoincrement())
+  slug  String @unique
+  name  String
+  image String
+}
